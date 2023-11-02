@@ -10,12 +10,12 @@ export const imageUploadSlice = createSlice({
   name: "imageUpload",
   initialState,
   reducers: {
-    setSelectedFile: (state, action: PayloadAction<File | null>) => {
+    setSelectedImage: (state, action: PayloadAction<File | null>) => {
       state.selectedFile = action.payload;
     },
   },
 });
 
-export const { setSelectedFile } = imageUploadSlice.actions;
+export const { setSelectedImage } = imageUploadSlice.actions;
 
 export default imageUploadSlice.reducer;
