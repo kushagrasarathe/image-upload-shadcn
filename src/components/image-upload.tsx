@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {
   Dialog,
@@ -12,8 +14,18 @@ import { FiUpload } from "react-icons/fi";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { IoCloudUploadOutline } from "react-icons/io5";
+import { setSelectedFile } from "@/redux/features/imageUploadSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
-export default function UploadImage() {
+export default function ImageUpload() {
+  const dispatch = useAppDispatch();
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files?.length) {
+      dispatch(setSelectedFile(event.target.files[0]));
+    }
+  };
+
   return (
     <Dialog>
       <DialogTrigger>
@@ -43,7 +55,13 @@ export default function UploadImage() {
                   &#41;
                 </p>
               </div>
-              <Input id="dropzone-file" type="file" className="hidden" />
+              <Input
+                id="dropzone-file"
+                accept="image/png, image/jpeg"
+                type="file"
+                className="hidden"
+                onChange={handleImageUpload}
+              />
             </label>
           </div>
         </DialogHeader>

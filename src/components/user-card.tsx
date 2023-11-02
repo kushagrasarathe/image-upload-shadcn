@@ -11,18 +11,18 @@ import Image from "next/image";
 import sample from "@/assets/sample.jpg";
 import { Button } from "./ui/button";
 import { MdDeleteOutline } from "react-icons/md";
-import UploadImage from "./upload-image";
+import UploadImage from "./image-upload";
 
 export default function UserCard() {
   return (
-    <Card className=" px-12 py-10 tablet:min-w-[500px]">
+    <Card className=" px-12 py-10 tablet:min-w-[500px] shadow-md">
       {/* <CardHeader>
         <CardTitle>Card Title</CardTitle>
         <CardDescription>Card Description</CardDescription>
       </CardHeader> */}
       <CardContent className=" px-0 flex items-stretch justify-normal gap-x-6">
         <Image
-          className=" w-24 h-24 border rounded-md object-cover"
+          className=" shadow-md w-24 h-24 border rounded-md object-cover"
           src={sample}
           alt="sample pfp"
         />
