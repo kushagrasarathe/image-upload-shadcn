@@ -1,33 +1,41 @@
 "use client";
 
 import React from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import Image from "next/image";
 import sample from "@/assets/sample.jpg";
 import { Button } from "./ui/button";
 import { MdDeleteOutline } from "react-icons/md";
 import UploadImage from "./image-upload";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { updateUserData } from "@/lib/api";
+import toast from "react-hot-toast";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { setUploadedImagePath } from "@/redux/features/imageUploadSlice";
 
 export default function UserCard() {
+  const dispatch = useAppDispatch();
   const uploadedImagePath = useAppSelector(
     (state) => state.imageUpload.uploadedImagePath
   );
 
+  const mutation = useMutation({
+    mutationFn: updateUserData,
+  });
+
+  const handleUpdateUserData = async () => {
+    if (!uploadedImagePath) {
+      return toast.error("Upload new image first...");
+    }
+
+    if (mutation.isError) {
+      return toast.error(`${mutation.error.message}`);
+    }
+    mutation.mutate({ image: uploadedImagePath as string });
+  };
+
   return (
     <Card className=" px-12 py-10 tablet:min-w-[500px] shadow-md">
-      {/* <CardHeader>
-        <CardTitle>Card Title</CardTitle>
-        <CardDescription>Card Description</CardDescription>
-      </CardHeader> */}
-      {/* {uploadedImagePath && uploadedImagePath} */}
       <CardContent className=" px-0 flex items-stretch justify-normal gap-x-6">
         <Image
           width={1000}
@@ -50,8 +58,15 @@ export default function UserCard() {
         </div>
       </CardContent>
       <CardFooter className=" border-t pt-5 pb-0 flex items-center justify-end gap-x-3">
-        <Button variant={"outline"}>Cancel</Button>
-        <Button>Update</Button>
+        <Button
+          onClick={() => dispatch(setUploadedImagePath(null))}
+          variant={"outline"}
+        >
+          Cancel
+        </Button>
+        <Button onClick={handleUpdateUserData} disabled={!uploadedImagePath}>
+          Update
+        </Button>
       </CardFooter>
     </Card>
   );
