@@ -1,10 +1,20 @@
-import UserCard from "@/components/user-card";
-import Image from "next/image";
+"use client";
+import Code from "@/components/code";
+import ImageUpload from "@/components/image-upload";
+import { useState } from "react";
 
 export default function Home() {
+  const [imageURL, setImageURL] = useState<string | null>(null);
+
+  const handleUploadComplete = (url: string) => {
+    setImageURL(url);
+  };
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <UserCard />
+    <main className="min-h-[90vh] flex items-center justify-center p-10">
+      <div className="w-6/12 h-[300px]">
+        <ImageUpload onUploadComplete={handleUploadComplete} />
+      </div>
     </main>
   );
 }

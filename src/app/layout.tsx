@@ -1,8 +1,9 @@
-import { Inter } from "next/font/google";
+import { Manrope } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/redux/provider";
+import Footer from "@/components/footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const font = Manrope({ subsets: ["latin"] });
 
 export default function RootLayout({
   children,
@@ -11,8 +12,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={font.className}>
         <Providers>{children}</Providers>
+        <Footer />
       </body>
     </html>
   );

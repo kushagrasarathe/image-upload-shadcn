@@ -12,6 +12,7 @@ import { updateUserData } from "@/lib/api";
 import toast from "react-hot-toast";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { setUploadedImagePath } from "@/redux/features/imageUploadSlice";
+import ImageUploadModal from "./image-upload-modal";
 
 export default function UserCard() {
   const dispatch = useAppDispatch();
@@ -50,7 +51,7 @@ export default function UserCard() {
             We support PNGs, JPEGs under 10MB
           </div>
           <div className=" flex items-center justify-normal gap-x-3">
-            <UploadImage />
+            <ImageUploadModal />
             <Button size={"icon"} variant={"outline"}>
               <MdDeleteOutline size="1.4em" />
             </Button>
