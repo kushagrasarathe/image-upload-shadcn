@@ -1,5 +1,4 @@
 "use client";
-import Code from "@/components/code";
 import ImageUpload from "@/components/image-upload";
 import { useState } from "react";
 
