@@ -81,7 +81,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onUploadComplete }) => {
     }
   }, []);
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps } = useDropzone({ onDrop, noClick: true });
 
   return (
     <div className="space-y-3 h-full">
